@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 import com.edgar.account.Util.Enum.TransactionType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity(name = "TRANSACTION")

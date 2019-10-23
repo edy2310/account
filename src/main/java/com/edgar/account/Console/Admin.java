@@ -87,7 +87,6 @@ public class Admin {
     private static void consultBalance(Account account){
         try{
             URI uri = new URI(URIs.SCHEME + URIs.HOST + URIs.ACCOUNTS + URIs.BALANCE + account.getId());
-            System.out.println(uri);
             BigInteger currentBalance = rt.getForObject(uri, BigInteger.class);
             System.out.println("Your current balance is: " + currentBalance);
             showAdmin(account);
