@@ -1,23 +1,24 @@
 package com.edgar.account.Console;
 
 import com.edgar.account.Models.Account;
+import com.edgar.account.Factories.RestTemplateFactory;
+import com.edgar.account.Factories.ScannerFactory;
 import com.edgar.account.Util.URIs;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Scanner;
 
 public class Register {
 
     public static void showRegisterMenu(){
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = ScannerFactory.getScanner();
         String firstName, lastName, ssn;
         Integer pin;
 
-        System.out.println("\n--- Register new account. ---");
+        System.out.println("--- Register new account. ---");
         System.out.println("* Mandatory");
 
         System.out.print("*First name: ");
@@ -48,7 +49,7 @@ public class Register {
     }
 
     private static Account createAccount(Account newAccount){
-        RestTemplate rt = new RestTemplate();
+        RestTemplate rt = RestTemplateFactory.getRestTemplate();
         try{
             URI uri = new URI(URIs.SCHEME + URIs.HOST + URIs.ACCOUNTS);
             ResponseEntity postAccount = rt.postForEntity(uri, newAccount, Account.class);

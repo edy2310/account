@@ -2,6 +2,8 @@ package com.edgar.account.Models;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
+import java.util.Set;
 
 @Entity(name = "ACCOUNT")
 @SequenceGenerator(name="seq", initialValue = 1001)
@@ -36,6 +38,9 @@ public class Account {
 
     @Column(name = "BALANCE")
     private BigInteger balance;
+
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions;
 
     public Integer getId() {
         return id;
@@ -83,6 +88,14 @@ public class Account {
 
     public void setBalance(BigInteger balance) {
         this.balance = balance;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     @Override

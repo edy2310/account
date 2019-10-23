@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 import com.edgar.account.Util.Enum.TransactionType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity(name = "TRANSACTION")
 public class Transaction {
@@ -11,11 +13,11 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Date date, TransactionType transactionType, BigInteger amount, String description) {
-        this.date = date;
+    public Transaction(TransactionType transactionType, BigInteger amount, String description, Account account) {
         this.transactionType = transactionType;
         this.amount = amount;
         this.description = description;
+        this.account = account;
     }
 
     @Id
@@ -23,9 +25,10 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "DATE")
+    @CreationTimestamp
     private Date date;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(name = "TYPE")
     private TransactionType transactionType;
 
@@ -34,6 +37,9 @@ public class Transaction {
 
     @Column(name = "DESCRIPTION")
     private String description;
+
+    @ManyToOne
+    private Account account;
 
     public Integer getId() {
         return id;
@@ -73,6 +79,14 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override

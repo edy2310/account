@@ -1,10 +1,10 @@
 package com.edgar.account;
 
 import com.edgar.account.Console.Menu;
+import com.edgar.account.Factories.ScannerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Scanner;
 
@@ -19,10 +19,11 @@ public class AccountApplication implements CommandLineRunner {
     public void run(String...args){
         int decision;
         do{
-            Scanner sc = new Scanner(System.in);
+            Scanner sc = ScannerFactory.getScanner();
             Menu.showMainMenu();
             System.out.print("Decision: ");
             decision = sc.nextInt();
+            sc.nextLine();
             Menu.decisionMenu(decision);
         }while(true);
     }

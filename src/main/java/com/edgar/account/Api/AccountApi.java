@@ -2,12 +2,13 @@ package com.edgar.account.Api;
 
 import com.edgar.account.Models.Account;
 import com.edgar.account.Repositories.AccountRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import java.math.BigInteger;
 import java.util.Optional;
 
 
@@ -19,7 +20,7 @@ public class AccountApi {
     AccountRepository repo;
 
     //Get Account by Id
-    @GetMapping("/{id}")
+    @GetMapping(path="/{id}", produces = "application/json")
     public Account getAccount(@PathVariable int id){
         Account newAccount;
         Optional<Account> optionalAccount = repo.findById(id);
@@ -43,5 +44,33 @@ public class AccountApi {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    //Update Account
+    @PutMapping(path = "/{id}", consumes = "application/json", produces = "application/json")
+    @JsonIgnore
+    public void updateAccount(@RequestBody Account account, @PathVariable int id){
+        Account accountToUpdate;
+        try{
+            Optional<Account> optionalAccount = repo.findById(id);
+            if (optionalAccount.isPresent()){
+                accountToUpdate = optionalAccount.get();
+                accountToUpdate.setBalance(account.getBalance());
+                repo.save(accountToUpdate);
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+    }
+
+    //Get Balance
+    @GetMapping(path = "/balance/{id}")
+    public BigInteger getBalance(@PathVariable int id){
+        Optional<Account> optionalAccount = repo.findById(id);
+        if(optionalAccount.isPresent())
+            return optionalAccount.get().getBalance();
+        else
+            return BigInteger.valueOf(-1);
     }
 }
