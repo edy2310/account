@@ -61,7 +61,6 @@ public class AccountApi {
         }catch (Exception e){
             System.out.println(e);
         }
-
     }
 
     //Get Balance
