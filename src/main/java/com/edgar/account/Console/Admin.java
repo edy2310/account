@@ -89,6 +89,8 @@ public class Admin {
             URI uri = new URI(URIs.SCHEME + URIs.HOST + URIs.ACCOUNTS + URIs.BALANCE + account.getId());
             BigInteger currentBalance = rt.getForObject(uri, BigInteger.class);
             System.out.println("Your current balance is: " + currentBalance);
+            Transaction newTransaction = new Transaction(TransactionType.DEBIT_CHECKS, BigInteger.ZERO, "Debit check from system", account);
+            createTransaction(newTransaction);
             showAdmin(account);
         }catch (Exception e){
             System.out.println(e);

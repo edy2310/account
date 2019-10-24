@@ -19,6 +19,12 @@ public class Transaction {
         this.account = account;
     }
 
+    public Transaction(TransactionType transactionType, BigInteger amount, String description){
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.description = description;
+    }
+
     @Id
     @GeneratedValue
     private Integer id;
