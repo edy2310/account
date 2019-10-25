@@ -53,7 +53,7 @@ This table shows the rest API services available in the project.
 | /transactions  | POST  | Create a transaction
 | /transactions/debit/{id}  | POST  | Make a debit as a transaction in the specific ID account
 
-Since the last endpoint is used from external services, here is the body it needs to send.
+Since the last endpoint is used from external services, here is the body it needs to receive.
 
 ```
 {
