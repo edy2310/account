@@ -31,6 +31,7 @@ This jar file is completely bootable from any JVM.
 
 ## Rest API
 This table shows the rest API services available in the project.
+###### All the endpoints are for internal use (Terminal). Except for "/transactions/debit/{id}", which is used as the web service.
 
 ##### Account Endpoints
 
@@ -48,3 +49,13 @@ This table shows the rest API services available in the project.
 | ------------- | ------------- | ------------- |
 | /transactions  | POST  | Create a transaction
 | /transactions/debit/{id}  | POST  | Make a debit as a transaction in the specific ID account
+
+Since the last endpoint is used from external services, here is the body it needs to send.
+
+```
+{
+    "transactionType": ["DEPOSIT", "WITHDRAWAL", "DEBIT_CHECKS"],
+    "amount": 0,
+    "description": "A little description of the service charged"
+}
+```
